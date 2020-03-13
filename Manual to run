@@ -1,0 +1,41 @@
+## needed Libraries
+    1- Tensorflow-gpu v1.12.0
+    2- ai2thor v 2.2.0
+    3- numpy   latest version 1.18.1
+    4- pandas v 1.0.0
+    ### Hint
+    There be additional related to Main Library
+
+### Steps to run the code
+    1- load the Autoencoder weights
+    class Network(object):
+        #### Create model
+        def __init__(self):
+            self.save_path = '### YOUR PATH to AUTOENCODER WEIGHTS###/CNN_AE.ckpt'
+
+    3- setting the directory where the training weights to be save -> dir = /your_directory/
+
+    2- The model was trained on Environment "FloorPlan225" which is the default in the Environment Class
+        ### Any changes to the Environment.py specially Scene and Actions, those changes need to be done also in Environment_top_view.py file
+
+
+    3- Specify which reward type to use in DRQN_HER_Training.py -> reward = "sparse"  # reward type "shaped","sparse"
+
+    4- For Random Agent initialization from random position only -> random_init_position = True
+                                                                    random_init_pose = False
+
+    5- For Random Agent initialization from random position and Pose -> random_init_position = False
+                                                                        random_init_pose = True
+
+    6- Top enable or disable the top view render -> top_view = True/False  # displaying top-view
+
+    7- Input-Size Parameter is the number of the size of the input to the LSTM is a vector of size 521
+        - Autpencoder Latent-vector size = 512
+        - agent position = 3
+        - Number of Agent Actions = 3 latest set of action
+        - #### if the number of the actions to be changed the number of the input size should also be changed ###
+
+
+
+
+
