@@ -133,9 +133,9 @@ def validate(n, nodes_num, top_view, env, envT, ae, ae_sess, distance_threshold,
 
         print("validation_success:", val_success, "validation_failures:", val_failures, "steps_num",num_steps)
         plotted_data_val = plotted_data_val.append({"Episodes": str(i),
-                                                    "Successes": val_success / (i + 1),
-                                                    "Failures": val_failures / (i + 1),
-                                                    "Ratio": (val_success / (val_failures + 0.01)),
+                                                    "Successes": val_success / (i+1),
+                                                    "Failures": val_failures / (i+1),
+                                                    "Ratio": (val_success / (val_failures + 0.1)),
                                                     "num_steps": num_steps}, ignore_index=True)
 
     plotted_data_val.plot(x="Episodes", y=["Successes", "Failures", "Ratio"],
