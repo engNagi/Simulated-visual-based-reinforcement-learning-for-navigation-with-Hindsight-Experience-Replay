@@ -35,7 +35,12 @@
         - Number of Agent Actions = 3 latest set of action
         - #### if the number of the actions to be changed the number of the input size should also be changed ###
 
+ DRQN_3_her_shaped_sequence -> DRQN with images and positions with shaped reward and HER ###### DONE
 
+ DRQN_3_her_shaped_sequence_images_only -> DRQN with images and without positions with shaped reward and HER ###### DONE
 
+ DRQN_3_her_sparse_sequence -> DRQN with images and positions with sparse reward and HER
+
+ DRQN_3_her_sparse_sequence_images_only -> DRQN with images and without positions with sparse reward and HER ###### DONE
 
 
