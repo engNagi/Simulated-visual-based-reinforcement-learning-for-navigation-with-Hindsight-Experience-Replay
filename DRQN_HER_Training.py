@@ -13,7 +13,7 @@ from helper import plotting_training_log, train_valid_env_sync, validate
 random.seed(123)
 np.random.seed(123)
 
-dir = "/home/nagi/Desktop/Master_project_final/DRQN_3_her_sparse_sequence/DRQN.ckpt"
+dir = "/home/nagi/Desktop/Master_project_final/DRQN_3_her_sparse_ More_sequences_More_/DRQN.ckpt"
 
 ##### environment_Variables
 grid_size = 0.18  # size of the agent step
@@ -26,7 +26,7 @@ reward = "sparse"  # reward type "shaped","sparse"
 
 #########################   hyper-parameter
 num_episodes = 15001
-her_samples = 8
+her_samples = 64
 batch_size = 32
 trace_length = 8
 gamma = 0.99
@@ -164,14 +164,14 @@ with tf.Session() as sess:
             validate(n=n, nodes_num=nodes_num, top_view=top_view, env=env, envT=envT, ae=ae, ae_sess=ae_sess,
                      distance_threshold=distance_threshold, model=model)
 
-        if n > 50 and n != 0:
+        if n > 100 and n != 0:
             loss = model.optimize(model=model,
                                   batch_size=batch_size,
                                   trace_length=trace_length,
                                   target_model=target_model,
                                   her_buffer=her_rec_buffer,
                                   optimization_steps=optimistion_steps)
-        if n % 15000 == 0 and n > 0:
+        if n % 4000 == 0 and n > 0:
             print("#### update model ####")
             target_model.soft_update_from(model)
 
