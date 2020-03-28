@@ -126,7 +126,7 @@ def validate(n, nodes_num, top_view, env, envT, ae, ae_sess, distance_threshold,
                     val_success += done
                 else:
                     val_failures += done
-            if num_steps == 150:
+            if num_steps == 200:
                 done = True
                 val_failures += done
                 break
