@@ -19,15 +19,16 @@ def train_valid_env_sync(training_env_pose, validation_env_pose):
 
 
 def plotting_training_log(num_episode, plotted_data, successes, failures, loss, goal, distance, agent_init_pos,
-                          epsilon):
+                          epsilon, num_steps):
     print("\repisode:", num_episode + 1,
           "successes:%.3f" % (successes / (num_episode + 1)),
           "goal x:%2f" % goal[0], "goal z:%2f" % goal[2],
           "agent pos x:%2f" % agent_init_pos[0], "agent pos z:%2f" % agent_init_pos[2],
           "distance: %3f" % distance,
           "failures:%.3f" % (failures / (num_episode + 1)),
-          "ratio %.3f" % (successes / (failures + 1e-6)),
-          "loss: %.2f" % loss, "exploration %.5f" % epsilon)
+          "ratio:%.3f" % (successes / (failures + 1e-6)),
+          "loss: %.2f" % loss, "exploration %.5f" % epsilon,
+          "Steps;", num_steps)
 
     if num_episode % 100 == 0 and num_episode > 0:
         #   combined plot of successful failed trajectories and Ratio between them
