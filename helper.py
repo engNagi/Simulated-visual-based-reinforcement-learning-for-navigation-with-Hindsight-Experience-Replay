@@ -28,7 +28,7 @@ def plotting_training_log(num_episode, plotted_data, successes, failures, loss, 
           "failures:%.3f" % (failures / (num_episode + 1)),
           "ratio:%.3f" % (successes / (failures + 1e-6)),
           "loss: %.2f" % loss, "exploration %.5f" % epsilon,
-          "Steps;", num_steps)
+          "Steps:", num_steps)
 
     if num_episode % 100 == 0 and num_episode > 0:
         #   combined plot of successful failed trajectories and Ratio between them
