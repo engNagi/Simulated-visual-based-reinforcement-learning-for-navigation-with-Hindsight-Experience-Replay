@@ -10,10 +10,13 @@ from autoencoder import load_autoencoder
 from experience_buffer import experience_buffer
 from helper import plotting_training_log, train_valid_env_sync, validate
 
+
 random.seed(123)
 np.random.seed(123)
 
-dir = "/home/nagi/Desktop/Master_project_final/DRQN_3_her_sparse_ More_sequences_More_/DRQN.ckpt"
+fields_name = ["iteration", "successes"]
+
+dir = "/home/nagi/Desktop/Master_project_final/DRQN_3_her_shaped_image_and_pos/DRQN.ckpt"
 
 ##### environment_Variables
 grid_size = 0.18  # size of the agent step
@@ -22,11 +25,11 @@ distance_threshold = grid_size * 2  # distance threshold to the goal
 action_n = 3  # number of allowed action
 random_init_position = False  # Random initial positions only -- no change in the agent orientation
 random_init_pose = True  # Random initial positions with random agent orientation
-reward = "sparse"  # reward type "shaped","sparse"
+reward = "shaped"  # reward type "shaped","sparse"
 
 #########################   hyper-parameter
 num_episodes = 15001
-her_samples = 64
+her_samples = 8
 batch_size = 32
 trace_length = 8
 gamma = 0.99
@@ -34,9 +37,9 @@ fcl_dims = 512
 nodes_num = 256
 optimistion_steps = 40
 epsilon_max = 1
-epsilon_min = 0.05
+epsilon_min = 0
 input_size = 521  ## size of the input to the LSTM
-epsilon_decay = epsilon_max - ((epsilon_max - epsilon_min) / 3500)
+epsilon_decay = epsilon_max - (epsilon_max / 3500)
 
 
 ## pandas data-frame for plotting
@@ -86,6 +89,7 @@ with tf.Session() as sess:
     epsilon = 1
 
     for n in range(start, num_episodes):
+        step_num = 0
         #   rnn_init_state
         rnn_state = (np.zeros([1, nodes_num]), np.zeros([1, nodes_num]))
         # reset environment
@@ -139,13 +143,17 @@ with tf.Session() as sess:
             obs_pos_state = obs_pos_state_
             distance = distance_
             pre_action_idx = curr_action_idx
-
+            step_num += 1
             if done:
                 if distance < distance_threshold:
                     successes += done
                 else:
                     failures += done
                 break
+            if step_num == 200:
+                    done = True
+                    failures += done
+                    break
 
         her_buffer = episode_buffer.her()
         her_rec_buffer.add(her_buffer)
@@ -157,10 +165,11 @@ with tf.Session() as sess:
                                             "Ratio": (successes / (failures + 1e-6)),
                                             "loss": loss, "epsilon": epsilon}, ignore_index=True)
 
-        plotting_training_log(n, plotted_data, successes, failures, loss, goal, distance, pos_state, epsilon)
+
+        plotting_training_log(n, plotted_data, successes, failures, loss, goal, distance, pos_state, epsilon, step_num)
 
         ###validation###
-        if n % 5000 == 0 and n > 0:
+        if n % 2000 == 0 and n > 0:
             validate(n=n, nodes_num=nodes_num, top_view=top_view, env=env, envT=envT, ae=ae, ae_sess=ae_sess,
                      distance_threshold=distance_threshold, model=model)
 
