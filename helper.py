@@ -38,6 +38,13 @@ def plotting_training_log(num_episode, plotted_data, successes, failures, loss, 
         plt.ylabel("Successful/Failed Trajectories and Ratio")
         plt.savefig("failed_success_ratio" + str(num_episode) + ".png")
 
+        #   plots of successful failed trajectories and F1 Score between them
+        plotted_data.plot(x="Episodes", y=["Successful trajectories", "Failed trajectories", "F1"],
+                          title="Agent Learning Ratio")
+        plt.xlabel("Episodes")
+        plt.ylabel("Successful/Failed Trajectories and F1 Score")
+        plt.savefig("failed_success_F1" + str(num_episode) + ".png")
+
         #   plot of successful trajectories
         plotted_data.plot(x="Episodes", y=["Successful trajectories"],
                           title="Successful Trajectories")
@@ -58,6 +65,12 @@ def plotting_training_log(num_episode, plotted_data, successes, failures, loss, 
         plt.ylabel("Ratio")
         plt.savefig("Ratio" + str(num_episode) + ".png")
 
+        plotted_data.plot(x="Episodes", y=["F1"],
+                          title="F1 Score between Successful and Failed Trajectory")
+        plt.xlabel("Episodes")
+        plt.ylabel("F1 Score")
+        plt.savefig("F1" + str(num_episode) + ".png")
+
         plotted_data.plot(x="Episodes", y=["loss"],
                           title="HER-DRQN model loss")
         plt.xlabel("Episodes")
@@ -68,7 +81,7 @@ def plotting_training_log(num_episode, plotted_data, successes, failures, loss, 
 def validate(n, nodes_num, top_view, env, envT, ae, ae_sess, distance_threshold, model):
     print("### Validation ###")
     plotted_data_val = pd.DataFrame(
-        columns=["Episodes", "Successful trajectories", "Failed trajectories", "Ratio", "loss", "epsilon", "num_steps"])
+        columns=["Episodes", "Successful trajectories", "Failed trajectories", "Ratio", "F1"])
     val_success = 0
     val_failures = 0
     for i in range(100):
@@ -134,13 +147,31 @@ def validate(n, nodes_num, top_view, env, envT, ae, ae_sess, distance_threshold,
 
         print("validation_success:", val_success, "validation_failures:", val_failures, "steps_num",num_steps)
         plotted_data_val = plotted_data_val.append({"Episodes": str(i),
-                                                    "Successes": val_success / (i+1),
-                                                    "Failures": val_failures / (i+1),
-                                                    "Ratio": (val_success / (val_failures + 0.1)),
-                                                    "num_steps": num_steps}, ignore_index=True)
+                                                    "Successful trajectories": val_success / (i+1),
+                                                    "Failed trajectories": val_failures / (i+1),
+                                                    "Ratio": (val_success / (val_failures + 1)),
+                                                    "F1": ((1 - (val_failures / (n + 1))) * (val_success / (n + 1))) /
+                                                          ((1 - (val_failures / (n + 1))) + ((val_success / (n + 1))) + 1)
+                                                    }, ignore_index=True)
 
-    plotted_data_val.plot(x="Episodes", y=["Successes", "Failures", "Ratio"],
+    plotted_data_val.plot(x="Episodes", y=["Successful trajectories", "Failed trajectories", "Ratio"],
                           title="Validation Agent Learning Ratio")
     plt.xlabel("Episodes")
     plt.ylabel("Successful/Failed Trajectories and Ratio")
     plt.savefig("Vaildation_failed_success_ratio " +str(n) + str(i) + ".png")
+
+
+
+    plotted_data_val.plot(x="Episodes", y=["Successful trajectories", "Failed trajectories", "F1"],
+                          title="Validation Agent Learning F1")
+    plt.xlabel("Episodes")
+    plt.ylabel("Successful/Failed Trajectories and F1 Score")
+    plt.savefig("Vaildation_failed_success_F1 " +str(n) + str(i) + ".png")
+
+
+
+    plotted_data_val.plot(x="Episodes", y=["F1"],
+                          title="F1 Score")
+    plt.xlabel("Episodes")
+    plt.ylabel("F1 Score between Successful and Failed Trajectory")
+    plt.savefig("F1 Score" +str(n) + str(i) + ".png")
