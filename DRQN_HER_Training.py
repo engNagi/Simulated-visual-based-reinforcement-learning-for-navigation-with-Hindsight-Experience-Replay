@@ -16,7 +16,7 @@ np.random.seed(123)
 
 fields_name = ["iteration", "successes"]
 
-dir = "/home/nagi/Desktop/Master_project_final/DRQN_3_her_shaped_image_and_pos/DRQN.ckpt"
+dir = "/home/nagi/Desktop/Master_project_final/DRQN_3_her_sparse_image_and_pos_F1/DRQN.ckpt"
 
 ##### environment_Variables
 grid_size = 0.18  # size of the agent step
@@ -25,7 +25,7 @@ distance_threshold = grid_size * 2  # distance threshold to the goal
 action_n = 3  # number of allowed action
 random_init_position = False  # Random initial positions only -- no change in the agent orientation
 random_init_pose = True  # Random initial positions with random agent orientation
-reward = "shaped"  # reward type "shaped","sparse"
+reward = "sparse"  # reward type "shaped","sparse"
 
 #########################   hyper-parameter
 num_episodes = 15001
@@ -39,12 +39,12 @@ optimistion_steps = 40
 epsilon_max = 1
 epsilon_min = 0
 input_size = 521  ## size of the input to the LSTM
-epsilon_decay = epsilon_max - (epsilon_max / 3500)
+epsilon_decay = epsilon_max - (epsilon_max / 3000)
 
 
 ## pandas data-frame for plotting
 plotted_data = pd.DataFrame(
-    columns=["Episodes", "Successful trajectories", "Failed trajectories", "Ratio", "loss", "epsilon"])
+    columns=["Episodes", "Successful trajectories", "Failed trajectories", "Ratio", "loss", "epsilon", "F1"])
 
 # experience replay parameters
 her_rec_buffer = her_buffer()
@@ -162,8 +162,10 @@ with tf.Session() as sess:
         plotted_data = plotted_data.append({"Episodes": str(n),
                                             "Successful trajectories": successes / (n + 1),
                                             "Failed trajectories": failures / (n + 1),
-                                            "Ratio": (successes / (failures + 1e-6)),
-                                            "loss": loss, "epsilon": epsilon}, ignore_index=True)
+                                            "Ratio": (successes / (failures + 1)),
+                                            "loss": loss, "epsilon": epsilon,
+                                            "F1": ((1-(failures / (n + 1))) * (successes / ( n + 1))) /
+                                                  (((1-(failures / (n + 1))) + ((successes / ( n + 1))))+1)}, ignore_index=True)
 
 
         plotting_training_log(n, plotted_data, successes, failures, loss, goal, distance, pos_state, epsilon, step_num)
@@ -183,8 +185,6 @@ with tf.Session() as sess:
         if n % 4000 == 0 and n > 0:
             print("#### update model ####")
             target_model.soft_update_from(model)
-
-        # model.log(drqn_summary=drqn_summary, encoder_summary=ae_summary, step=start)
 
         epsilon = max(epsilon * epsilon_decay, epsilon_min)
 
