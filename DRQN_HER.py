@@ -193,8 +193,3 @@ class DRQN(object):
             losses += loss
         return losses / optimization_steps
 
-    def log(self, encoder_summary, drqn_summary, step):
-        encoder_writer = tf.summary.FileWriter("/home/nagi/Desktop/Master_Project/DRQN_features_pos_2/encoder")
-        encoder_writer.add_summary(encoder_summary, global_step=step)
-        writer = tf.summary.FileWriter("/home/nagi/Desktop/Master_Project/DRQN_features_pos_2/Train")
-        writer.add_summary(drqn_summary, global_step=step)
