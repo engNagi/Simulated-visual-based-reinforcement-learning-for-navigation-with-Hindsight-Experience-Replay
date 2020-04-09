@@ -2,13 +2,13 @@ import random
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from DRQN_HER import DRQN
-from Environment import Environment
-from Environment_top_view import Environment_topview
-from Her_episodes_experiences import her_buffer
-from autoencoder import load_autoencoder
-from experience_buffer import experience_buffer
-from helper import plotting_training_log, train_valid_env_sync, validate
+from Agent_image_only.DRQN_HER import DRQN
+from Agent_image_only.Environment import Environment
+from Agent_image_only.Environment_top_view import Environment_topview
+from Agent_image_only.Her_episodes_experiences import her_buffer
+from Agent_image_only.autoencoder import load_autoencoder
+from Agent_image_only.experience_buffer import experience_buffer
+from Agent_image_only.helper import plotting_training_log, train_valid_env_sync, validate
 
 random.seed(123)
 np.random.seed(123)
