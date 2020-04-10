@@ -8,23 +8,40 @@
 
 ### Steps to run the code
     1- load the Autoencoder weights
-    class Network(object):
-        #### Create model
-        def __init__(self):
-            self.save_path = '### YOUR PATH to AUTOENCODER WEIGHTS###/CNN_AE.ckpt'
+    file name: autoencoder
+        class Network(object):
+            #### Create model
+21-            def __init__(self):
+22-           self.save_path = '### YOUR PATH to AUTOENCODER WEIGHTS###/CNN_AE.ckpt'
 
     3- setting the directory where the training weights to be save -> dir = /your_directory/
 
     2- The model was trained on Environment "FloorPlan225" which is the default in the Environment Class
         ### Any changes to the Environment.py specially Scene and Actions, those changes need to be done also in Environment_top_view.py file
 
+Running file in any folder those settings need to be modified
+running files path:
+for playing the trajectory:
+    playing/trajectory_plotting_images_only.py
+    playing/trajectory_plotting_images_pos.py
+    playing/trajectory_plotting_shaped_reward_only.py
 
-    3- Specify which reward type to use in DRQN_HER_Training.py -> reward = "sparse"  # reward type "shaped","sparse"
+for training and evalation shaped reward only: 
+    Agent_shaped_reward_only/DRQN_HER_Training.py
 
-    4- For Random Agent initialization from random position only -> random_init_position = True
+for training and evalation images and position images only: 
+    Agent_image_only/DRQN_HER_Training.py
+
+for training and evalation images and positions images and positions: 
+    Agent_shaped_reward_wiz_her_images_and_postions/DRQN_HER_Training.py
+
+    3- Specify which reward type to use in DRQN_HER_Training.py -> reward =  ["shaped"],["sparse"]
+
+
+lines 25  For Random Agent initialization from random position only -> random_init_position = True
                                                                     random_init_pose = False
 
-    5- For Random Agent initialization from random position and Pose -> random_init_position = False
+lines 22 Random Agent initialization from random position and Pose -> random_init_position = False
                                                                         random_init_pose = True
 
     6- Top enable or disable the top view render -> top_view = True/False  # displaying top-view
