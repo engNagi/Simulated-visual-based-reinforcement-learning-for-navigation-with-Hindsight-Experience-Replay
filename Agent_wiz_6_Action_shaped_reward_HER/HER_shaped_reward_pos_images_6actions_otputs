@@ -1,0 +1,35 @@
+/home/nagi/Desktop/Master_project_final/venv/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/nagi/Desktop/Master_project_final/venv/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/nagi/Desktop/Master_project_final/venv/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/nagi/Desktop/Master_project_final/venv/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/nagi/Desktop/Master_project_final/venv/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/nagi/Desktop/Master_project_final/venv/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+Found path: /home/nagi/.ai2thor/releases/thor-202001071627-Linux64/thor-202001071627-Linux64
+Mono path[0] = '/home/nagi/.ai2thor/releases/thor-202001071627-Linux64/thor-202001071627-Linux64_Data/Managed'
+Mono config path = '/home/nagi/.ai2thor/releases/thor-202001071627-Linux64/thor-202001071627-Linux64_Data/Mono/etc'
+Preloaded 'ScreenSelector.so'
+Display 0 '0': 1920x1080 (primary device).
+Logging to /home/nagi/.config/unity3d/Allen Institute for Artificial Intelligence/AI2-Thor/Player.log
+Found path: /home/nagi/.ai2thor/releases/thor-202001071627-Linux64/thor-202001071627-Linux64
+Mono path[0] = '/home/nagi/.ai2thor/releases/thor-202001071627-Linux64/thor-202001071627-Linux64_Data/Managed'
+Mono config path = '/home/nagi/.ai2thor/releases/thor-202001071627-Linux64/thor-202001071627-Linux64_Data/Mono/etc'
+Preloaded 'ScreenSelector.so'
+Display 0 '0': 1920x1080 (primary device).
+Logging to /home/nagi/.config/unity3d/Allen Institute for Artificial Intelligence/AI2-Thor/Player.log
+Autoencoder
+Traceback (most recent call last):
+  File "/home/nagi/Desktop/Master_project_final/Agent_shaped_reward_wiz_her_images_and_postions_6actions/DRQN_HER_Training.py", line 61, in <module>
+    ae_sess, ae = load_autoencoder()
+  File "/home/nagi/Desktop/Master_project_final/Agent_shaped_reward_wiz_her_images_and_postions_6actions/autoencoder.py", line 320, in load_autoencoder
+    AE_CNN_sess = tf.Session(graph=AE_CNN)
+  File "/home/nagi/Desktop/Master_project_final/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1551, in __init__
+    super(Session, self).__init__(target, graph, config=config)
+  File "/home/nagi/Desktop/Master_project_final/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 676, in __init__
+    self._session = tf_session.TF_NewSessionRef(self._graph._c_graph, opts)
+KeyboardInterrupt
