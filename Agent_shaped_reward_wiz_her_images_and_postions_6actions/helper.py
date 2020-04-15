@@ -26,7 +26,7 @@ def plotting_training_log(num_episode, plotted_data, successes, failures, loss, 
           "agent pos x:%2f" % agent_init_pos[0], "agent pos z:%2f" % agent_init_pos[2],
           "distance: %3f" % distance,
           "failures:%.3f" % (failures / (num_episode + 1)),
-          "ratio:%.3f" % (successes / (failures + 0.1)),
+          "ratio:%.3f" % (successes / (failures + 1e-6)),
           "loss: %.2f" % loss, "exploration %.5f" % epsilon,
           "Steps:", num_steps)
 
@@ -101,6 +101,7 @@ def validate(n, nodes_num, top_view, env, envT, ae, ae_sess, distance_threshold,
 
         features = ae_sess.run(ae.feature_vector, feed_dict={ae.image: obs_state[None, :, :, :]})
         features = np.squeeze(features, axis=0)
+        obs_pos_state = np.concatenate((features, pos_state), axis=0)
 
         done = False
         num_steps = 0
@@ -111,7 +112,7 @@ def validate(n, nodes_num, top_view, env, envT, ae, ae_sess, distance_threshold,
                                                               trace_length=1,
                                                               epsilon=0,
                                                               rnn_state=rnn_state,
-                                                              pos_obs_state=features,
+                                                              pos_obs_state=obs_pos_state,
                                                               pre_action=pre_action_idx)
 
             obs_state_, pos_state_, distance_, done, reward, collision, pose_ = env.step(curr_action_idx,
@@ -127,9 +128,10 @@ def validate(n, nodes_num, top_view, env, envT, ae, ae_sess, distance_threshold,
 
             features_ = ae_sess.run(ae.feature_vector, feed_dict={ae.image: obs_state_[None, :, :, :]})
             features_ = np.squeeze(features_, axis=0)
+            obs_pos_state_ = np.concatenate((features_, pos_state_), axis=0)
 
             rnn_state = rnn_state_
-            features = features_
+            obs_pos_state = obs_pos_state_
             distance = distance_
             pre_action_idx = curr_action_idx
             num_steps += 1

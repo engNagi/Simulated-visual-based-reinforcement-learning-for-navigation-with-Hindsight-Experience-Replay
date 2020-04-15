@@ -13,7 +13,7 @@ from Agent_image_only.helper import plotting_training_log, train_valid_env_sync,
 random.seed(123)
 np.random.seed(123)
 
-dir = "/home/nagi/Desktop/Master_project_final/DRQN_3_her_shaped_sequence_images_only_f1/DRQN.ckpt"
+dir = "/home/nagi/Desktop/Master_project_final/DRQN_3_her__sequence_images_only_f1/DRQN.ckpt"
 
 ##### environment_Variables
 grid_size = 0.18  # size of the agent step
@@ -161,7 +161,7 @@ with tf.Session() as sess:
         plotted_data = plotted_data.append({"Episodes": str(n),
                                             "Successful trajectories": successes / (n + 1),
                                             "Failed trajectories": failures / (n + 1),
-                                            "Ratio": (successes / (failures + 1e-6)),
+                                            "Ratio": (successes / (failures + 0.1)),
                                             "loss": loss, "epsilon": epsilon,
                                             "F1": ((1-(failures / (n + 1))) * (successes / ( n + 1))) /
                                                   (((1-(failures / (n + 1))) + ((successes / ( n + 1))))+1)}, ignore_index=True)
